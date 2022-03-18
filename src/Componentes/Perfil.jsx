@@ -1,20 +1,29 @@
 import { Paper } from "@mui/material";
 import * as React from "react";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import foto from "../img/foto.jpeg";
 import Typography from "@mui/material/Typography";
 import ModoEdicion from "./ModoEdición.jsx";
+import Dialogs from "./Dialog";
 
 const Perfil = (props) => {
+  const handleSave = () => {
+    setOpenW(true);
+  };
+  const handleContinuar = () => {
+    setOpenW(false);
+    setOpenC(true);
+    setModoEdicion(false);
+  };
+  const [openWarningDialog, setOpenW] = useState(false);
+  const [openConfirmationDialog, setOpenC] = useState(false);
+
   const [modoEdicion, setModoEdicion] = useState(false);
   const handleEdicion = () => {
     setModoEdicion(true);
-  };
-  const handleGuardar = () => {
-    setModoEdicion(false);
   };
 
   const [nombres, setNombres] = useState("Anthony Edward");
@@ -43,21 +52,42 @@ const Perfil = (props) => {
         <div style={{ display: "inline", justifyContent: "start" }}>
           {" "}
           {modoEdicion ? (
-            <Button
-              variant="contained"
-              startIcon={<SaveIcon />}
-              onClick={handleGuardar}
-            >
-              GUARDAR
-            </Button>
+            <Fragment>
+              <Button
+                variant="contained"
+                startIcon={<SaveIcon />}
+                onClick={handleSave}
+              >
+                GUARDAR
+              </Button>
+              <Dialogs
+                abrir={openWarningDialog}
+                onClose={() => {
+                  setOpenW(false);
+                }}
+                message={"¿Desea guardar los cambios?"}
+                tipoAlerta="warning"
+                onContinuar={handleContinuar}
+              />
+            </Fragment>
           ) : (
-            <Button
-              variant="outlined"
-              startIcon={<EditIcon />}
-              onClick={handleEdicion}
-            >
-              EDITAR
-            </Button>
+            <Fragment>
+              <Button
+                variant="outlined"
+                startIcon={<EditIcon />}
+                onClick={handleEdicion}
+              >
+                EDITAR
+              </Button>
+              <Dialogs
+                abrir={openConfirmationDialog}
+                onClose={() => {
+                  setOpenC(false);
+                }}
+                message={"¡Cambios guardados exitosamente!"}
+                tipoAlerta="exito"
+              />
+            </Fragment>
           )}
         </div>
       </div>

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Paper } from "@mui/material";
 import { TextField } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { DatePicker } from "@mui/lab";
+
 const ModoEdición = (props) => {
   const { datos, states } = props;
   const [value, setValue] = React.useState(datos.fechaNacimiento);
@@ -131,7 +132,6 @@ const ModoEdición = (props) => {
               onChange={(value) => {
                 setValue(value);
                 states.fechaNacimiento(value.toLocaleDateString());
-                console.log(value.toLocaleDateString());
               }}
             />
           </LocalizationProvider>
