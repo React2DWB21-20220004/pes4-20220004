@@ -102,6 +102,7 @@ const BarraNavegacion = (props) => {
           /* component="main" */
           sx={{ flexGrow: 1, bgcolor: "#F8F9FA", p: 3, borderRadius: "10px" }}
         >
+          <Toolbar />
           {children}
         </Box>
       </Box>
